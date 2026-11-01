@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block title %}Customers &middot; Corner Bookshop{% endblock %}
+{% block content %}
+<div class="row-between">
+  <div>
+    <h1>Customers</h1>
+    <p class="muted">Customer directory and order history export</p>
+  </div>
+  <a class="button-link" href="/api/customers/export">Export CSV</a>
+</div>
+<table class="grid">
+  <thead>
+    <tr><th>#</th><th>Name</th><th>Email</th><th>Phone</th></tr>
+  </thead>
+  <tbody>
+    {% for customer in customers %}
+    <tr>
+      <td class="mono">{{ customer.id }}</td>
+      <td>{{ customer.name }}</td>
+      <td>{{ customer.email }}</td>
+      <td>{{ customer.phone }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

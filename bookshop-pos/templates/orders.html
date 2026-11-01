@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% block title %}Orders &middot; Corner Bookshop{% endblock %}
+{% block content %}
+<h1>Orders</h1>
+<p class="muted">Sales and refund status</p>
+<table class="grid">
+  <thead>
+    <tr><th>#</th><th>Customer</th><th>Subtotal</th><th>Discount</th><th>Total</th><th>Status</th><th>Action</th></tr>
+  </thead>
+  <tbody>
+    {% for order in orders %}
+    <tr>
+      <td class="mono">{{ order.id }}</td>
+      <td>{{ order.customer.name if order.customer else '—' }}</td>
+      <td>${{ '%.2f'|format(order.subtotal) }}</td>
+      <td>{{ '%.0f'|format(order.discount_percent) }}%</td>
+      <td>${{ '%.2f'|format(order.total) }}</td>
+      <td>
+        {% if order.status == 'PAID' %}<span class="badge ok">PAID</span>
+        {% elif order.status == 'REFUNDED' %}<span class="badge muted-badge">REFUNDED</span>
+        {% elif order.status == 'VOIDED' %}<span class="badge danger">VOIDED</span>
+        {% else %}<span class="badge warn">{{ order.status }}</span>{% endif %}
+      </td>
+      <td>
+        {% if order.status == 'PAID' %}
+          <button class="mini refund-btn" data-order="{{ order.id }}">Refund</button>
+          {% if user.role == 'manager' %}<button class="mini secondary void-btn" data-order="{{ order.id }}">Void</button>{% endif %}
+        {% elif order.status == 'REFUND_PENDING_MANAGER_APPROVAL' and user.role == 'manager' %}
+          <button class="mini approve-btn" data-order="{{ order.id }}">Approve refund</button>
+        {% else %}—{% endif %}
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+<div id="orders-result" class="result"></div>
+
+<script>
+async function postOrderAction(url, label) {
+  const response = await fetch(url, { method: 'POST' });
+  const box = document.getElementById('orders-result');
+  if (response.ok) {
+    const data = await response.json();
+    box.className = 'result ok';
+    box.textContent = 'Order #' + data.orderId + ' is now ' + data.status;
+    setTimeout(() => window.location.reload(), 600);
+  } else {
+    box.className = 'result error';
+    box.textContent = label + ' could not be completed.';
+  }
+}
+
+document.querySelectorAll('.refund-btn').forEach((button) => {
+  button.addEventListener('click', () => postOrderAction('/api/orders/' + button.dataset.order + '/refund', 'Refund'));
+});
+document.querySelectorAll('.void-btn').forEach((button) => {
+  button.addEventListener('click', () => postOrderAction('/orders/' + button.dataset.order + '/void', 'Void'));
+});
+document.querySelectorAll('.approve-btn').forEach((button) => {
+  button.addEventListener('click', () => postOrderAction('/orders/' + button.dataset.order + '/approve-refund', 'Approval'));
+});
+</script>
+{% endblock %}

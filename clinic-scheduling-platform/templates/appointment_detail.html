@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block title %}Appointment — Clinic Scheduling Platform{% endblock %}
+{% block content %}
+<div class="card">
+  <h2>Appointment #{{ appointment_id }}</h2>
+  <pre id="appointment-json">Loading…</pre>
+</div>
+{% endblock %}
+{% block scripts %}<script>loadAppointmentDetail({{ appointment_id }});</script>{% endblock %}

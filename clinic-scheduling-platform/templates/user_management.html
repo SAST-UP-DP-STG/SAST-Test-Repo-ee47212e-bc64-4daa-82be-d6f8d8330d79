@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}Users — Clinic Scheduling Platform{% endblock %}
+{% block content %}
+<div class="card">
+  <h2>Staff Accounts</h2>
+  <p class="muted" id="users-hint">Create staff accounts for your clinic.</p>
+  <form onsubmit="createUser(event)">
+    <label>Username <input name="username" required /></label>
+    <label>Email <input name="email" type="email" required /></label>
+    <label>Role
+      <select name="role">
+        <option value="receptionist">receptionist</option>
+        <option value="clinician">clinician</option>
+        <option value="clinic_admin">clinic_admin</option>
+      </select>
+    </label>
+    <label>Password <input name="password" type="password" value="Welcome@123" /></label>
+    <button type="submit">Create account</button>
+  </form>
+  <pre id="user-result" style="margin-top:16px"></pre>
+</div>
+{% endblock %}
+{% block scripts %}<script>loadUsers();</script>{% endblock %}

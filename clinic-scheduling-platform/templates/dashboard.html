@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}Dashboard — Clinic Scheduling Platform{% endblock %}
+{% block content %}
+<div class="card">
+  <h2>Welcome, {{ request.user.username }}</h2>
+  <p class="muted">Role: {{ request.user.role }} · Clinic: {{ request.user.clinic_id }}</p>
+</div>
+<div class="grid">
+  <div class="card"><h2>Appointments</h2><p class="muted">Schedule and manage clinic appointments.</p><a href="/appointments"><button class="secondary">Open</button></a></div>
+  <div class="card"><h2>Encounters</h2><p class="muted">Review clinical encounter notes.</p><a href="/encounters"><button class="secondary">Open</button></a></div>
+  <div class="card"><h2>Analytics</h2><p class="muted">Clinic utilization and exports.</p><a href="/analytics"><button class="secondary">Open</button></a></div>
+  <div class="card"><h2>Billing</h2><p class="muted">Invoices and disbursements.</p><a href="/finance"><button class="secondary">Open</button></a></div>
+</div>
+{% endblock %}

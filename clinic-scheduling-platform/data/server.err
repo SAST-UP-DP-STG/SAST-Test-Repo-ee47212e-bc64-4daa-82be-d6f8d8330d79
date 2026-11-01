@@ -1,0 +1,8 @@
+INFO:     Started server process [27532]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:8080 (Press CTRL+C to quit)
+Not Found: /favicon.ico
+Not Found: /favicon.ico
+Bad Request: /api/users
+Not Found: /api/appointments/2

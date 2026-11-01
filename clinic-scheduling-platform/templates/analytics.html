@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}Analytics — Clinic Scheduling Platform{% endblock %}
+{% block content %}
+<div class="card">
+  <h2>Clinic Analytics</h2>
+  <p class="muted">Utilization metrics and data exports.</p>
+  <p>
+    <button onclick="runAnalytics('/export/full','POST')">Run full export</button>
+    <button class="secondary" onclick="runAnalytics('/clinics/recompute','POST')">Recompute metrics</button>
+    <button class="secondary" onclick="runAnalytics('/my-exports','GET')">My exports</button>
+  </p>
+  <pre id="analytics-result"></pre>
+</div>
+{% endblock %}

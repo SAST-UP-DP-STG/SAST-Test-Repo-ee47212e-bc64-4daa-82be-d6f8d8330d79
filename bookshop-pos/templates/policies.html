@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block title %}Policies &middot; Corner Bookshop{% endblock %}
+{% block content %}
+<h1>Store Policies</h1>
+<p class="muted">Financial controls</p>
+
+<div class="panel">
+  <h2>Refund approval</h2>
+  <p>Manager approval currently
+    {% if refund_required %}<span class="badge ok">required</span>{% else %}<span class="badge danger">not required</span>{% endif %}.
+  </p>
+  <form method="post" action="/management/policies/refunds" class="form-inline">
+    <label>Require manager approval
+      <select name="refundApprovalRequired">
+        <option value="true" {% if refund_required %}selected{% endif %}>true</option>
+        <option value="false" {% if not refund_required %}selected{% endif %}>false</option>
+      </select>
+    </label>
+    <button type="submit">Save</button>
+  </form>
+</div>
+
+<div class="panel">
+  <h2>Maximum discount</h2>
+  <p>Cashiers may apply up to <strong>{{ max_discount }}%</strong>.</p>
+  <form method="post" action="/management/policies/discounts" class="form-inline">
+    <label>Max discount %<input name="maxDiscountPercent" type="number" value="{{ max_discount }}" min="0"></label>
+    <button type="submit">Save</button>
+  </form>
+</div>
+{% endblock %}

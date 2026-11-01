@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}Encounters — Clinic Scheduling Platform{% endblock %}
+{% block content %}
+<div class="card">
+  <h2>Encounter Queue</h2>
+  <p class="muted">Encounter notes in your work queue.</p>
+  <table>
+    <thead><tr><th>ID</th><th>Appointment</th><th>Clinician</th><th>Confidential</th><th>Note</th></tr></thead>
+    <tbody id="encounters-body"></tbody>
+  </table>
+</div>
+{% endblock %}
+{% block scripts %}<script>loadEncounterQueue();</script>{% endblock %}

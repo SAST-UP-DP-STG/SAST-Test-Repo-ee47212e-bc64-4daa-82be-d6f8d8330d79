@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block title %}Dashboard &middot; Corner Bookshop{% endblock %}
+{% block content %}
+<h1>Dashboard</h1>
+<p class="muted">Daily operations overview</p>
+<div class="cards">
+  <div class="card">
+    <div class="card-value">{{ total_orders }}</div>
+    <div class="card-label">Orders on file</div>
+  </div>
+  <div class="card">
+    <div class="card-value">{{ pending_refunds }}</div>
+    <div class="card-label">Refunds pending approval</div>
+  </div>
+  <div class="card">
+    <div class="card-value">{{ low_stock }}</div>
+    <div class="card-label">Low-stock titles</div>
+  </div>
+</div>
+{% endblock %}

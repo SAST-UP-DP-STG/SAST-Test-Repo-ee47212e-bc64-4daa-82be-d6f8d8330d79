@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}Billing — Clinic Scheduling Platform{% endblock %}
+{% block content %}
+<div class="card">
+  <h2>Billing &amp; Invoices</h2>
+  <p class="muted">Issue and review clinic invoices.</p>
+  <form onsubmit="issueInvoice(event)">
+    <div class="grid">
+      <label>Appointment ID <input name="appointment_id" type="number" /></label>
+      <label>Clinic ID <input name="clinic_id" type="number" /></label>
+      <label>Amount <input name="amount" type="number" step="0.01" /></label>
+      <label>Memo <input name="memo" /></label>
+    </div>
+    <button type="submit">Issue invoice</button>
+    <button type="button" class="secondary" onclick="loadFinance()">Export invoices</button>
+  </form>
+  <pre id="finance-result" style="margin-top:16px"></pre>
+</div>
+{% endblock %}

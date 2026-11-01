@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% block title %}Catalog &middot; Corner Bookshop{% endblock %}
+{% block content %}
+<h1>Catalog</h1>
+<p class="muted">Titles in stock &mdash; update pricing inline</p>
+<table class="grid">
+  <thead>
+    <tr><th>ISBN</th><th>Title</th><th>Author</th><th>Price</th><th>Stock</th><th>Update price</th></tr>
+  </thead>
+  <tbody>
+    {% for book in books %}
+    <tr>
+      <td class="mono">{{ book.isbn }}</td>
+      <td>{{ book.title }}</td>
+      <td>{{ book.author }}</td>
+      <td>${{ '%.2f'|format(book.price) }}</td>
+      <td>{% if book.stock < 5 %}<span class="badge warn">{{ book.stock }}</span>{% else %}{{ book.stock }}{% endif %}</td>
+      <td>
+        <form class="price-form row-form" data-book="{{ book.id }}">
+          <input name="price" type="number" step="0.01" min="0" value="{{ '%.2f'|format(book.price) }}">
+          <button type="submit" class="mini">Update</button>
+        </form>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+<div id="catalog-result" class="result"></div>
+
+<script>
+document.querySelectorAll('.price-form').forEach((form) => {
+  form.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const bookId = form.dataset.book;
+    const price = form.querySelector('input[name="price"]').value;
+    const response = await fetch('/api/books/' + bookId + '/price', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ price: parseFloat(price) })
+    });
+    const box = document.getElementById('catalog-result');
+    if (response.ok) {
+      const data = await response.json();
+      box.className = 'result ok';
+      box.textContent = 'Price updated for ISBN ' + data.isbn + ' to $' + data.price.toFixed(2);
+      setTimeout(() => window.location.reload(), 600);
+    } else {
+      box.className = 'result error';
+      box.textContent = 'Could not update price.';
+    }
+  });
+});
+</script>
+{% endblock %}

@@ -1,0 +1,14 @@
+.venv/
+__pycache__/
+*.pyc
+data/bookshop.db
+data/commands/incoming/*
+data/commands/processed/*
+data/commands/failed/*
+data/commands/outbox/*
+!data/commands/incoming/.gitkeep
+!data/commands/processed/.gitkeep
+!data/commands/failed/.gitkeep
+!data/commands/outbox/.gitkeep
+server*.log
+tmp-*.json

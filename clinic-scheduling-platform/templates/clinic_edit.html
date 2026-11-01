@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}Edit Clinic — Clinic Scheduling Platform{% endblock %}
+{% block content %}
+<div class="card">
+  <h2>Edit {{ clinic.name }}</h2>
+  <form method="post" action="/clinics/{{ clinic.id }}/edit">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Save changes</button>
+    <a href="/clinics/config"><button type="button" class="secondary">Cancel</button></a>
+  </form>
+</div>
+{% endblock %}

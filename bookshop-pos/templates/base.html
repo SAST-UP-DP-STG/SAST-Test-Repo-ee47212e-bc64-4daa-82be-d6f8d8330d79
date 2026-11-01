@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Corner Bookshop Back-Office{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  {% if user %}
+  <header class="topbar">
+    <div class="brand">Corner Bookshop</div>
+    <nav class="mainnav">
+      <a href="/dashboard">Dashboard</a>
+      <a href="/catalog">Catalog</a>
+      <a href="/orders">Orders</a>
+      <a href="/customers">Customers</a>
+      <a href="/shift">Shift</a>
+      {% if user.role == 'manager' %}<a href="/admin/staff">Staff</a>{% endif %}
+      <a href="/management/policies">Policies</a>
+      <a href="/integrations">Integrations</a>
+    </nav>
+    <div class="userbox">
+      <span class="who">{{ user.full_name }} &middot; {{ user.role }}</span>
+      <a class="logout" href="/logout">Sign out</a>
+    </div>
+  </header>
+  {% endif %}
+  <main class="content">
+    {% block content %}{% endblock %}
+  </main>
+</body>
+</html>

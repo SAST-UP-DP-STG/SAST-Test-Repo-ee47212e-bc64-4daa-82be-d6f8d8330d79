@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{% block title %}Clinic Scheduling Platform{% endblock %}</title>
+  <link rel="stylesheet" href="/static/styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">Clinic Scheduling Platform</div>
+    <nav class="main">
+      <a href="/">Dashboard</a>
+      <a href="/appointments">Appointments</a>
+      <a href="/encounters">Encounters</a>
+      <a href="/documents/library">Documents</a>
+      <a href="/clinics/config">Clinics</a>
+      <a href="/users">Users</a>
+      <a href="/analytics">Analytics</a>
+      <a href="/finance">Billing</a>
+      <a href="/staff/reconciliation">Reconciliation</a>
+      <a href="/admin/tools">Admin Tools</a>
+      <a href="/logout">Sign out</a>
+    </nav>
+  </header>
+  <div class="container">
+    {% block content %}{% endblock %}
+  </div>
+  <script src="/static/app.js"></script>
+  {% block scripts %}{% endblock %}
+</body>
+</html>

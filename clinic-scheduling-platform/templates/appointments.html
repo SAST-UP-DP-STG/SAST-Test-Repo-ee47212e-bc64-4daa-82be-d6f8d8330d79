@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}Appointments — Clinic Scheduling Platform{% endblock %}
+{% block content %}
+<div class="card">
+  <h2>Appointments</h2>
+  <p class="muted">Appointments visible to your account.</p>
+  <table>
+    <thead><tr><th>ID</th><th>Clinic</th><th>Clinician</th><th>Reason</th><th>Status</th><th>Billing</th></tr></thead>
+    <tbody id="appointments-body"></tbody>
+  </table>
+  <p style="margin-top:16px"><a href="/appointments/export"><button class="secondary">Export all appointments (CSV)</button></a></p>
+</div>
+{% endblock %}
+{% block scripts %}<script>loadAppointments();</script>{% endblock %}

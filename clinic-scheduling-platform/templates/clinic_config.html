@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}Clinic Configuration — Clinic Scheduling Platform{% endblock %}
+{% block content %}
+<div class="card">
+  <h2>Clinic Configuration</h2>
+  <p class="muted">Manage clinic settings.</p>
+  <table>
+    <thead><tr><th>ID</th><th>Name</th><th>Location</th><th>Status</th><th>Capacity</th><th></th></tr></thead>
+    <tbody>
+      {% for clinic in clinics %}
+      <tr>
+        <td>{{ clinic.id }}</td>
+        <td>{{ clinic.name }}</td>
+        <td>{{ clinic.location }}</td>
+        <td><span class="badge">{{ clinic.status }}</span></td>
+        <td>{{ clinic.weekly_capacity }}</td>
+        <td><a href="/clinics/{{ clinic.id }}/edit"><button class="secondary">Edit</button></a></td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

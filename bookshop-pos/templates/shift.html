@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% block title %}Shift &middot; Corner Bookshop{% endblock %}
+{% block content %}
+<h1>Cashier Shift</h1>
+<p class="muted">Open a shift to record sales</p>
+
+<div class="panel">
+  {% if open_shift %}
+    <div class="row-between">
+      <span>Shift <strong>#{{ open_shift.id }}</strong> is open.</span>
+      <form method="post" action="/shift/close"><button class="secondary">Close shift</button></form>
+    </div>
+  {% else %}
+    <form method="post" action="/shift/open"><button>Open shift</button></form>
+  {% endif %}
+</div>
+
+{% if open_shift %}
+<div class="panel">
+  <h2>New sale</h2>
+  <form id="sale-form" class="form-grid">
+    <label>Title
+      <select name="book_id">
+        {% for book in books %}
+        <option value="{{ book.id }}">{{ book.title }} (${{ '%.2f'|format(book.price) }})</option>
+        {% endfor %}
+      </select>
+    </label>
+    <label>Customer
+      <select name="customer_id">
+        <option value="">Walk-in</option>
+        {% for customer in customers %}
+        <option value="{{ customer.id }}">{{ customer.name }}</option>
+        {% endfor %}
+      </select>
+    </label>
+    <label>Quantity<input name="quantity" type="number" value="1" min="1"></label>
+    <label>Discount %<input name="discountPercent" type="number" value="0" min="0"></label>
+    <button type="submit">Record sale</button>
+  </form>
+  <div id="sale-result" class="result"></div>
+</div>
+{% endif %}
+
+<script>
+const form = document.getElementById('sale-form');
+if (form) {
+  form.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const payload = Object.fromEntries(new FormData(form).entries());
+    const response = await fetch('/shift/sale', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+    const data = await response.json();
+    const box = document.getElementById('sale-result');
+    if (response.ok) {
+      box.className = 'result ok';
+      box.textContent = 'Sale #' + data.orderId + ' recorded. Total $' + data.total.toFixed(2);
+    } else {
+      box.className = 'result error';
+      box.textContent = data.error + (data.maxDiscountPercent !== undefined ? ' (max ' + data.maxDiscountPercent + '%)' : '');
+    }
+  });
+}
+</script>
+{% endblock %}

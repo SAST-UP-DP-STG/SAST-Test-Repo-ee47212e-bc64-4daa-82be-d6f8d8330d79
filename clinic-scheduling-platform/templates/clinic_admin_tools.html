@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}Admin Tools — Clinic Scheduling Platform{% endblock %}
+{% block content %}
+<div class="card">
+  <h2>Clinic Admin Tools</h2>
+  <p class="muted">Administrative utilities and finalize actions.</p>
+  <table>
+    <thead><tr><th>Clinic</th><th>Name</th><th>Status</th></tr></thead>
+    <tbody>
+      {% for clinic in clinics %}
+      <tr><td>{{ clinic.id }}</td><td>{{ clinic.name }}</td><td>{{ clinic.status }}</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

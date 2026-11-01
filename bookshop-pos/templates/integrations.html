@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block title %}Integrations · Corner Bookshop{% endblock %}
+{% block content %}
+<section class="page">
+  <h1>Integrations</h1>
+  <p class="muted">Channels that POS registers and partner systems use to talk to the back-office.</p>
+
+  <div class="cards">
+    <div class="card">
+      <h3>Payment webhook</h3>
+      <p><code>POST /webhooks/payments</code></p>
+      <p class="muted">Captures, refunds, and failures pushed by the payment provider.</p>
+    </div>
+    <div class="card">
+      <h3>Register live feed</h3>
+      <p><code>WS /ws/register</code></p>
+      <p class="muted">Real-time voids and price changes from the till.</p>
+    </div>
+    <div class="card">
+      <h3>Catalog GraphQL</h3>
+      <p><code>POST /graphql</code></p>
+      <p class="muted">Price and stock automation for partner tools.</p>
+    </div>
+    <div class="card">
+      <h3>Command service</h3>
+      <p><code>tcp://:9100</code></p>
+      <p class="muted">Legacy dispatch protocol (VOID_SALE, SET_PRICE).</p>
+    </div>
+    <div class="card">
+      <h3>Event broker</h3>
+      <p><code>tcp://:9110</code></p>
+      <p class="muted">PRICE_UPDATED / REFUND_ISSUED / STOCK_ADJUSTED events.</p>
+    </div>
+    <div class="card">
+      <h3>Cache admin</h3>
+      <p><code>tcp://:9120</code></p>
+      <p class="muted">Runtime config, discount cache, and session control.</p>
+    </div>
+    <div class="card">
+      <h3>Back-office RPC</h3>
+      <p><code>xmlrpc://:9130</code></p>
+      <p class="muted">set_price, set_stock, refund_order, dump_config.</p>
+    </div>
+  </div>
+
+  <h2>Recent integration activity</h2>
+  <table class="grid">
+    <thead><tr><th>Action</th><th>Detail</th></tr></thead>
+    <tbody>
+      {% for event in events %}
+      <tr><td>{{ event.action }}</td><td>{{ event.detail }}</td></tr>
+      {% else %}
+      <tr><td colspan="2" class="muted">No activity recorded yet.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</section>
+{% endblock %}

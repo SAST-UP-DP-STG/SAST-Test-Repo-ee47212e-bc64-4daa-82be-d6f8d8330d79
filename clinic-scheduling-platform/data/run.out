@@ -1,0 +1,26 @@
+INFO:     Started server process [3020]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:8080 (Press CTRL+C to quit)
+INFO:     127.0.0.1:55301 - "GET /login HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55302 - "POST /api/token HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51799 - "POST /api/token HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51799 - "GET /login HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51799 - "POST /login HTTP/1.1" 302 Found
+INFO:     127.0.0.1:51799 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50062 - "POST /api/users/4/reset-password HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50063 - "POST /api/users/4/impersonate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50064 - "POST /api/users/4/security-settings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53494 - "POST /svc/finance/webhooks/invoice-paid HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53495 - "POST /clinics/2/edit HTTP/1.1" 302 Found
+INFO:     127.0.0.1:53495 - "GET /clinics/config HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59074 - "GET /documents/library HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59075 - "GET /api/documents/latest/download HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59076 - "GET /api/appointments/4 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59076 - "PUT /api/appointments/4 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59077 - "PATCH /api/users/5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59080 - "PATCH /api/users/2 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59081 - "POST /api/appointments/bulk-update HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59081 - "GET /api/appointments/1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51395 - "POST /api/users/import HTTP/1.1" 201 Created
+INFO:     127.0.0.1:51396 - "POST /api/users/sync HTTP/1.1" 200 OK

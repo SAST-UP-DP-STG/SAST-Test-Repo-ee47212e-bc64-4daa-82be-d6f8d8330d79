@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}Document Library — Clinic Scheduling Platform{% endblock %}
+{% block content %}
+<div class="card">
+  <h2>Document Library</h2>
+  <p class="muted">Browse intake summaries, reports, and referrals. Search by title or filter by type.</p>
+  <form method="get" class="filters">
+    <input type="text" name="q" value="{{ query }}" placeholder="Search title..." />
+    <select name="type">
+      <option value="">All types</option>
+      {% for type in doc_types %}
+      <option value="{{ type }}" {% if type == selected_type %}selected{% endif %}>{{ type }}</option>
+      {% endfor %}
+    </select>
+    <button type="submit">Apply</button>
+  </form>
+</div>
+
+<div class="grid">
+  {% for document in documents %}
+  <div class="card document">
+    <h3>{{ document.title }}</h3>
+    <p class="muted">{{ document.doc_type }} · clinic {{ document.clinic_id }} · {{ document.created_at|date:"Y-m-d" }}</p>
+    {% if document.confidential %}<span class="badge">Confidential</span>{% endif %}
+    <p class="preview">{{ document.content|truncatechars:140 }}</p>
+  </div>
+  {% empty %}
+  <p class="muted">No documents found.</p>
+  {% endfor %}
+</div>
+
+<div class="card">
+  <a class="button" href="/api/documents/latest/download">Download most recent document</a>
+</div>
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}Reconciliation — Clinic Scheduling Platform{% endblock %}
+{% block content %}
+<div class="card">
+  <h2>Billing Reconciliation</h2>
+  <p class="muted">Staff billing reconciliation dashboard.</p>
+  <div class="grid">
+    <div class="card"><h2>{{ total }}</h2><p class="muted">Total appointments</p></div>
+    <div class="card"><h2>{{ unbilled }}</h2><p class="muted">Unbilled</p></div>
+    <div class="card"><h2>{{ finalized }}</h2><p class="muted">Finalized</p></div>
+  </div>
+</div>
+{% endblock %}
